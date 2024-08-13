@@ -7,7 +7,7 @@ export default function Home() {
       <h1 className="text-3xl font-bold"> Landing Page for the Social Spy</h1>
       <p>Press the button to use the app</p>
       <Link href="/app">
-        <Button type="primary">Let's Experiment</Button>
+        <Button type="primary">Experiment</Button>
       </Link>
     </div>
   );

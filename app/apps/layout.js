@@ -7,11 +7,12 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
+
 import { Button, Layout, Menu, theme } from "antd";
 
 const { Sider, Content } = Layout;
 
-export default function ({ children }) {
+export default function AppsLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },

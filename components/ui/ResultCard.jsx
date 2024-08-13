@@ -13,11 +13,12 @@ const ResultCard = ({
   post_title,
   post_des,
   post_url,
+  key,
 }) => {
   const [isLoading, setisLoading] = useState(false);
 
   const actions = [
-    <Button type="link" href={post_url} target="_blank">
+    <Button key={post_url} type="link" href={post_url} target="_blank">
       <EditOutlined key="edit" />
     </Button>,
 
