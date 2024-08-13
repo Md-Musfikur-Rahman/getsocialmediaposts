@@ -14,7 +14,7 @@ export async function GET(req) {
 
   try {
     const browser = await puppeteer.launch({
-      headless: true, // This will open the browser window
+      headless: true, // Open a visible browser window
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
@@ -27,16 +27,27 @@ export async function GET(req) {
     // Wait for search results to load
     await page.waitForSelector("h3");
 
-    // Extract search result titles and links
+    // Extract search result titles, links, and full text from the specified div
     const results = await page.evaluate(() => {
       const links = [];
-      const items = document.querySelectorAll("h3");
+      const items = document.querySelectorAll("div.g"); // Select the whole search result block
+
       items.forEach((item) => {
-        const anchor = item.closest("a");
-        if (anchor) {
+        const titleElement = item.querySelector("h3");
+        const anchor = titleElement.closest("a");
+        const descriptionElement = item.querySelector(
+          "div.VwiC3b.yXK7lf.lVm3ye.r025kc.hJNv6b.Hdw6tb"
+        );
+
+        const descriptionText = descriptionElement
+          ? descriptionElement.innerText
+          : ""; // Get full text from the div
+
+        if (titleElement && anchor) {
           links.push({
-            title: item.innerText,
+            title: titleElement.innerText,
             link: anchor.href,
+            description: descriptionText,
           });
         }
       });
@@ -45,6 +56,7 @@ export async function GET(req) {
 
     await browser.close();
 
+    // Return the results
     return new Response(JSON.stringify({ results }), { status: 200 });
   } catch (error) {
     console.error("Error running Puppeteer:", error);

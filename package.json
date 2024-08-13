@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "antd": "^5.20.1",
     "next": "14.2.5",
+    "openai": "^4.55.5",
     "puppeteer": "^23.0.2",
     "puppeteer-core": "^23.0.2",
     "react": "^18",
